@@ -106,14 +106,25 @@ import {
 
     // ── Inyecta URLs de WhatsApp en todos los CTAs ────────────────────────────
     function initWALinks() {
-      const message = buildMessage();
+      const defaultMessage = buildMessage();
+      const origin         = getOriginLabel();
+
       document.querySelectorAll('[data-wa-section]').forEach(el => {
         const section = el.dataset.waSection;
+        const pkgName = el.dataset.waPkg; // presente solo en CTAs de paquete
+
+        let message = defaultMessage;
+        if (pkgName) {
+          const pkgText = `Hola, me interesa el paquete ${pkgName} de AJL Nutrición.`;
+          message = encodeURIComponent(origin ? `${pkgText} [${origin}]` : pkgText);
+        }
+
         el.setAttribute('href', `https://wa.me/${waNumber}?text=${message}`);
         el.addEventListener('click', () => {
           const isFloating = section === 'floating';
           trackEvent(isFloating ? 'whatsapp_click_floating' : 'whatsapp_click', {
             section_id: section,
+            ...(pkgName && { package_name: pkgName }),
           });
         });
       });

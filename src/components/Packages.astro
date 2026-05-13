@@ -41,15 +41,16 @@ const packages = [
 ];
 ---
 
-<section id="section-packages" class="section bg-white">
+<section id="section-packages" class="section bg-white" aria-label="Paquetes de nutrición">
   <div class="container">
-    <p class="label">Paquetes</p>
+    <p class="label">Elige tu nivel de acompañamiento</p>
     <h2 class="title" style="margin-bottom: 0.75rem;">
-      El paquete se elige<br />después de la Evaluación.
+      El paquete que encaja<br />con tu vida y tu objetivo.
     </h2>
     <p class="subtitle" style="margin-bottom: 3rem;">
-      No elijas un paquete sin diagnóstico previo. La Evaluación de S/80 determina
-      cuál es el nivel de acompañamiento que tu caso necesita.
+      La diferencia entre paquetes es la frecuencia de contacto con tu nutricionista.
+      Todos incluyen plan personalizado y seguimiento por WhatsApp.
+      Si aún no sabes cuál elegir, más abajo hay una opción para ti.
     </p>
 
     <div class="packages-grid">
@@ -70,24 +71,27 @@ const packages = [
               </li>
             ))}
           </ul>
+          <a
+            href={WA_FALLBACK_URL}
+            class={`pkg-cta${pkg.highlight ? ' pkg-cta--featured' : ''}`}
+            data-wa-section="paquetes"
+            data-wa-pkg={pkg.name}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Quiero el paquete ${pkg.name} — abre WhatsApp`}
+          >
+            Quiero este paquete →
+          </a>
         </article>
       ))}
     </div>
 
-    <div class="packages-cta">
-      <p class="packages-cta__text">
-        El primer paso siempre es la <strong>Evaluación Nutricional de S/80</strong>.<br />
-        Desde ahí, Rodrigo te guía al paquete correcto para tu caso.
+    <div class="packages-note">
+      <p>
+        ¿No sabes cuál elegir? No hay problema.
+        Más abajo encontrarás la <strong>Evaluación Nutricional de S/80</strong> —
+        una consulta previa que te ayuda a definir el paquete correcto para tu caso.
       </p>
-      <a
-        href={WA_FALLBACK_URL}
-        class="btn-primary"
-        data-wa-section="paquetes"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Comenzar con la Evaluación →
-      </a>
     </div>
   </div>
 </section>
@@ -198,20 +202,45 @@ const packages = [
 .pkg-feature span { color: var(--gold); flex-shrink: 0; }
 .pkg-card--featured .pkg-feature { color: #ccc; }
 
-/* Section CTA */
-.packages-cta {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  text-align: center;
-  padding: 2.5rem;
+/* CTA por paquete */
+.pkg-cta {
+  display: block;
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
   background: var(--gray-light);
-  border-radius: 12px;
+  color: var(--black);
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-align: center;
+  border-radius: var(--radius);
+  transition: background var(--transition), color var(--transition);
+  min-height: 44px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.packages-cta__text {
-  font-size: 1rem;
+.pkg-cta:hover { background: var(--gold); color: var(--black); }
+
+.pkg-cta--featured {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.pkg-cta--featured:hover { background: var(--gold-dark); }
+
+/* Nota inferior */
+.packages-note {
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  background: var(--gray-light);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.packages-note p {
+  font-size: 0.92rem;
   color: var(--gray-dark);
   line-height: 1.65;
 }
